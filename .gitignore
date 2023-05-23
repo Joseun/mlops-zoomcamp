@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 data/
 .ipynb_checkpoints
 .bin
@@ -19,8 +18,4 @@ __pycache__/
 **.terraform/
 **.terraform.lock*
 **terraform.tfstate*
-=======
 soft/
-*csv
-*parquet
->>>>>>> 4ddf10c (First commit)
