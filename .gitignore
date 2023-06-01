@@ -6,12 +6,15 @@ data/
 *.parquet
 *.html
 *.csv
+*.pkl
 
 .venv
 venv
 .idea
 **/artifacts/
+**/artifacts_local/
 **/models/
+**/mlruns/
 
 __pycache__/
 **.env
@@ -22,3 +25,4 @@ __pycache__/
 .DS_Store
 
 soft/
+
