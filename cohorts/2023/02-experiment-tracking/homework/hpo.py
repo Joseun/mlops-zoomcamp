@@ -8,7 +8,7 @@ from optuna.samplers import TPESampler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
+mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment("random-forest-hyperopt")
 
 
@@ -30,6 +30,8 @@ def load_pickle(filename):
 )
 def run_optimization(data_path: str, num_trials: int):
 
+    mlflow.log_param("train-data-path", "./output/train.pkl")
+    mlflow.log_param("valid-data-path", "./output/val.pkl")
     X_train, y_train = load_pickle(os.path.join(data_path, "train.pkl"))
     X_val, y_val = load_pickle(os.path.join(data_path, "val.pkl"))
 
@@ -42,17 +44,20 @@ def run_optimization(data_path: str, num_trials: int):
             'random_state': 42,
             'n_jobs': -1
         }
-
-        rf = RandomForestRegressor(**params)
-        rf.fit(X_train, y_train)
-        y_pred = rf.predict(X_val)
-        rmse = mean_squared_error(y_val, y_pred, squared=False)
-
+        mlflow.end_run()
+        with mlflow.start_run():
+            mlflow.log_params(params)
+            rf = RandomForestRegressor(**params)
+            rf.fit(X_train, y_train)
+            y_pred = rf.predict(X_val)
+            rmse = mean_squared_error(y_val, y_pred, squared=False)
+            mlflow.log_metric("rmse", rmse)
+        mlflow.end_run()
         return rmse
 
     sampler = TPESampler(seed=42)
     study = optuna.create_study(direction="minimize", sampler=sampler)
-    study.optimize(objective, n_trials=num_trials)
+    study.optimize(objective, n_trials=num_trials)  
 
 
 if __name__ == '__main__':
