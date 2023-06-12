@@ -1,0 +1,56 @@
+###
+### A complete description of a Prefect Deployment for flow 'main-flow'
+###
+name: homework
+description: The main training pipeline
+version: 65e596e898266b21a832d34d7f76fa80
+# The work queue that will handle this deployment's runs
+work_queue_name: homework
+work_pool_name: default-agent-pool
+tags: []
+parameters: {}
+schedule:
+  cron: 0 9 3 * *
+  timezone: null
+  day_or: true
+is_schedule_active: true
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: main-flow
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: 78134441-0ddd-4502-9c66-bb499ce48c92
+  _block_document_name: anonymous-f661fdcb-5ced-450e-b996-0b8cd2c85b17
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage: null
+path: /mnt/c/Users/ologa/Documents/mlops-zoomcamp/cohorts/2023/03-orchestration
+entrypoint: orchestrate.py:main_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    train_path:
+      title: train_path
+      default: ./data/green_tripdata_2021-01.parquet
+      position: 0
+      type: string
+    val_path:
+      title: val_path
+      default: ./data/green_tripdata_2021-02.parquet
+      position: 1
+      type: string
+  required: null
+  definitions: null
+timestamp: '2023-06-11T23:17:50.315139+00:00'

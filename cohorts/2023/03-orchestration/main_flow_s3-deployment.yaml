@@ -1,0 +1,53 @@
+###
+### A complete description of a Prefect Deployment for flow 'main-flow-s3'
+###
+name: hw-artifact
+description: The main training pipeline
+version: 05b326ac09a4c6bf781475ded792017a
+# The work queue that will handle this deployment's runs
+work_queue_name: homework
+work_pool_name: null
+tags: []
+parameters: {}
+schedule:
+  cron: 0 9 3 * *
+  timezone: null
+  day_or: true
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: main-flow-s3
+manifest_path: null
+storage: null
+path: /mnt/c/Users/ologa/Documents/mlops-zoomcamp/cohorts/2023/03-orchestration
+entrypoint: orchestrate_s3.py:main_flow_s3
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    train_path:
+      title: train_path
+      default: ./data/green_tripdata_2021-01.parquet
+      position: 0
+      type: string
+    val_path:
+      title: val_path
+      default: ./data/green_tripdata_2021-02.parquet
+      position: 1
+      type: string
+  required: null
+  definitions: null
+timestamp: '2023-06-11T23:18:11.545094+00:00'
